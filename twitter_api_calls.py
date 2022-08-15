@@ -1,16 +1,19 @@
+"""Imports/Set-Up"""
 import tweepy
 from creds import bearer_token
+client = tweepy.Client(bearer_token=bearer_token)
 
-
+"""General Resources"""
 # how to write better search queries:
 # https://github.com/twitterdev/getting-started-with-the-twitter-api-v2-for-academic-research/blob/main/modules/5-how-to-write-search-queries.md
 # Building high-quality filters for getting Twitter data
 # https://developer.twitter.com/en/docs/tutorials/building-high-quality-filters
 # How to use the Twitter API v2 in Python using Tweepy
 # https://www.youtube.com/watch?v=0EekpQBEP_8
+
+"""Define Queries"""
 keyword = "trump"
 query = f"{keyword} -is:retweet"
-client = tweepy.Client(bearer_token=bearer_token)
 
 """Get Recent Tweets"""
 # docs -> https://docs.tweepy.org/en/stable/client.html#tweepy.Client.search_recent_tweets
