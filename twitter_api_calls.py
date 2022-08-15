@@ -3,6 +3,8 @@ import tweepy
 from creds import bearer_token
 client = tweepy.Client(bearer_token=bearer_token)
 import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
+sia = SIA()
 # nltk corupus downloads
 nltk.download('vader_lexicon')
 nltk.download('stopwords')
@@ -18,7 +20,7 @@ nltk.download('punkt')
 
 """Define Queries"""
 keyword = "trump"
-query = f"{keyword} -is:retweet"
+query = f"{keyword} -is:retweet" #excludes re-tweets
 
 """Get Recent Tweets"""
 # docs -> https://docs.tweepy.org/en/stable/client.html#tweepy.Client.search_recent_tweets
@@ -36,3 +38,6 @@ counts = client.get_recent_tweets_count(query=query, granularity="day")
 
 """Get Polarity Score for Individual Tweet"""
 tweet = tweets[0]
+text = tweet.text
+sentenced = nltk.tokenize.sent_tokenize(text) # tokenizes story text by sentence
+scores = [sia.polarity_scores(sentence) for sentence in sentenced]
