@@ -40,5 +40,5 @@ counts = client.get_recent_tweets_count(query=query, granularity="day")
 tweet = tweets[0][0]
 print(tweet)
 text = tweet.text
-sentenced = nltk.tokenize.sent_tokenize(text) # tokenizes story text by sentence
+sentenced = nltk.tokenize.sent_tokenize(text) # tokenizes tweet text by sentence
 scores = [sia.polarity_scores(sentence) for sentence in sentenced]
