@@ -5,7 +5,7 @@ client = tweepy.Client(bearer_token=bearer_token)
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 sia = SIA()
-# nltk corupus downloads
+# nltk corpus downloads
 nltk.download('vader_lexicon')
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -27,9 +27,9 @@ query = f"{keyword} -is:retweet" #excludes re-tweets
 # get 100 tweets w/ keyword (100 is the maximum # of results per request)
 tweets = client.search_recent_tweets(query=query, max_results=100)
 # use pagination to get more than 100 tweets (multiple requests will be made)
-more_tweets = [tweet for tweet in tweepy.Paginator(client.search_recent_tweets, query=query, max_results=100).flatten(limit=1000)]
+# more_tweets = [tweet for tweet in tweepy.Paginator(client.search_recent_tweets, query=query, max_results=100).flatten(limit=1000)]
 # use pagination to find all tweets that match keyword (no limit is set, be careful, we are only using essential tier)
-all_tweets = [tweet for tweet in tweepy.Paginator(client.search_recent_tweets, query=query, max_results=100).flatten()]
+# all_tweets = [tweet for tweet in tweepy.Paginator(client.search_recent_tweets, query=query, max_results=100).flatten()]
 
 "Get Recent Tweet Counts"
 # granularity default is 1 hours
@@ -37,7 +37,8 @@ all_tweets = [tweet for tweet in tweepy.Paginator(client.search_recent_tweets, q
 counts = client.get_recent_tweets_count(query=query, granularity="day")
 
 """Get Polarity Score for Individual Tweet"""
-tweet = tweets[0]
+tweet = tweets[0][0]
+print(tweet)
 text = tweet.text
 sentenced = nltk.tokenize.sent_tokenize(text) # tokenizes story text by sentence
 scores = [sia.polarity_scores(sentence) for sentence in sentenced]
